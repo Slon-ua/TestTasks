@@ -7,15 +7,13 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class HomePage {
 
-    public static HomePage open(){
+    public static HomePage open() {
         Selenide.open("/");
         return new HomePage();
     }
 
-    public void followingLink(String link){
+    public void followingLink(String link) {
         // $(link).click();
         $(By.linkText(link)).click();
-
     }
-
 }

@@ -8,11 +8,11 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoadedChapterPage {
 
-    public SelenideElement checkTextOnPage(){
+    public SelenideElement checkTextOnPage() {
         return $("#divontheleft");
     }
 
-    public void followingLink(String link){
+    public void followingLink(String link) {
         $(By.linkText(link)).click();
     }
 }
