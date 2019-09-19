@@ -22,19 +22,27 @@ public class BaseUITest {
     }
 
     private void setHost() {
-        Map myVars = singletonMap(ENV_VARIABLE_KEY, getProperty(ENV_VARIABLE_KEY));
-        ProjectConfig config = ConfigFactory.create(ProjectConfig.class, myVars, System.getProperties());
-        Configuration.baseUrl = config.host();
+        try {
+            Map myVars = singletonMap(ENV_VARIABLE_KEY, getProperty(ENV_VARIABLE_KEY));
+            ProjectConfig config = ConfigFactory.create(ProjectConfig.class, myVars, System.getProperties());
+            Configuration.baseUrl = config.host();
+        } catch (IllegalArgumentException e) {
+            Configuration.baseUrl = ConfigFactory.create(ProjectConfig.class).defaultHost();
+        }
     }
 
     private void setBrowser() {
-        Map myVars = singletonMap(BRWS_VARIABLE_KEY, getProperty(BRWS_VARIABLE_KEY));
-        ProjectConfig config = ConfigFactory.create(ProjectConfig.class, myVars, System.getProperties());
-        String browser = config.browser();
-        selectBrowser(browser);
+        try {
+            Map myVars = singletonMap(BRWS_VARIABLE_KEY, getProperty(BRWS_VARIABLE_KEY));
+            ProjectConfig config = ConfigFactory.create(ProjectConfig.class, myVars, System.getProperties());
+            String browser = config.browser();
+            selectBrowser(browser);
+        } catch (IllegalArgumentException e) {
+            Configuration.browser = ConfigFactory.create(ProjectConfig.class).defaultBrowser();
+        }
     }
 
-    private void selectBrowser(String browser){
+    private void selectBrowser(String browser) {
         Configuration.browser = browser;
         Configuration.holdBrowserOpen = false;
         System.setProperty("webdriver.chrome.driver", "./resources/chromedriver.exe");
