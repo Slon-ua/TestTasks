@@ -12,6 +12,7 @@ import static org.testng.Assert.assertTrue;
 public class HomePageTest extends BaseUITest {
 
     HomePage homePage = new HomePage();
+    LoadedChapterPage loadedChapterPage = new LoadedChapterPage();
 
     @Test
     public void userCanGoToChapter1() {
@@ -22,7 +23,6 @@ public class HomePageTest extends BaseUITest {
         //  then
         assertTrue(Html.text.contains(url(), "http://book.theautomatedtester.co.uk/chapter1"));
         //  expect
-        LoadedChapterPage loadedChapterPage = new LoadedChapterPage();
         loadedChapterPage
                 .checkTextOnPage().shouldHave(Condition.text("Assert that this text is on the page"));
         //  then
