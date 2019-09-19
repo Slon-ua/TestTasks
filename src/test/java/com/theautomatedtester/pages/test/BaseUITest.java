@@ -21,32 +21,23 @@ public class BaseUITest {
         setBrowser();
     }
 
-    public void setHost() {
+    private void setHost() {
         Map myVars = singletonMap(ENV_VARIABLE_KEY, getProperty(ENV_VARIABLE_KEY));
         ProjectConfig config = ConfigFactory.create(ProjectConfig.class, myVars, System.getProperties());
-        Configuration.baseUrl = config.host();  //вызов конкретной проперти
+        Configuration.baseUrl = config.host();
     }
 
-    public void setBrowser() {
-        Map myVars1 = singletonMap(BRWS_VARIABLE_KEY, getProperty(BRWS_VARIABLE_KEY));
-        ProjectConfig config1 = ConfigFactory.create(ProjectConfig.class, myVars1, System.getProperties());
-        String browser = config1.brws();
-
-        if (browser == "Firefox") {
-            browserFirefox();
-        } else if (browser == "Chrome") {
-            browserChrome();
-        }
+    private void setBrowser() {
+        Map myVars = singletonMap(BRWS_VARIABLE_KEY, getProperty(BRWS_VARIABLE_KEY));
+        ProjectConfig config = ConfigFactory.create(ProjectConfig.class, myVars, System.getProperties());
+        String browser = config.browser();
+        selectBrowser(browser);
     }
 
-    public void browserChrome() {
-        Configuration.browser = "Chrome";
+    private void selectBrowser(String browser){
+        Configuration.browser = browser;
         Configuration.holdBrowserOpen = false;
         System.setProperty("webdriver.chrome.driver", "./resources/chromedriver.exe");
-    }
-
-    public void browserFirefox() {
-        Configuration.browser = "Firefox";
     }
 }
 
